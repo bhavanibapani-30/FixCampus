@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technician Dashboard - College Maintenance System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body id="technician-dashboard-view">
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">⚡</div>
+                <div class="brand-info">
+                    <h2>FixCampus</h2>
+                    <span>Technician Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-label">Technician Work</div>
+                <a href="technician-dashboard.html" class="nav-item active">
+                    <span class="icon">🛠️</span>
+                    <span>Assigned Jobs</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h1>Technician Workspace</h1>
+                    <p>Track your assigned campus maintenance jobs, start repairs, and resolve tickets</p>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="user-badge">
+                        <div class="user-avatar" id="header-user-avatar" style="background: var(--info);">T</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="header-user-name">Technician</span>
+                            <span class="user-role-tag" id="header-user-role" style="color: var(--info);">TECHNICIAN</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- Metric Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card" style="--card-accent: var(--info);">
+                        <div class="stat-info">
+                            <div class="stat-label">Assigned Jobs</div>
+                            <div class="stat-value" id="stat-assigned">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--info-light); --icon-color: var(--info);">
+                            📌
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--primary);">
+                        <div class="stat-info">
+                            <div class="stat-label">In Progress</div>
+                            <div class="stat-value" id="stat-in-progress">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--primary-light); --icon-color: var(--primary);">
+                            ⚙️
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--success);">
+                        <div class="stat-info">
+                            <div class="stat-label">Resolved by Me</div>
+                            <div class="stat-value" id="stat-resolved">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--success-light); --icon-color: var(--success);">
+                            ✅
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: #e11d48;">
+                        <div class="stat-info">
+                            <div class="stat-label">High / Urgent Tasks</div>
+                            <div class="stat-value" id="stat-urgent" style="color: #e11d48;">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: #ffe4e6; --icon-color: #e11d48;">
+                            🔥
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assigned Jobs Table Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">My Assigned Maintenance Requests</h3>
+                            <p class="card-subtitle">Select a task to review details, begin repair work, or submit resolution report</p>
+                        </div>
+                    </div>
+
+                    <div class="card-body" style="padding: 0;">
+                        <div class="table-responsive">
+                            <table class="data-table" id="technician-tasks-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Title & Location</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 32px;">
+                                            Loading assigned maintenance jobs...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/technician.js"></script>
+</body>
+</html>

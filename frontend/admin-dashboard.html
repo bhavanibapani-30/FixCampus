@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - College Maintenance System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="admin-dashboard-view">
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon" style="background: linear-gradient(135deg, #4f46e5, #ec4899);">🛡️</div>
+                <div class="brand-info">
+                    <h2>FixCampus</h2>
+                    <span>Facility Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-label">Administration</div>
+                <a href="admin-dashboard.html" class="nav-item active">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="manage-requests.html" class="nav-item">
+                    <span class="icon">🛠️</span>
+                    <span>Manage Requests</span>
+                </a>
+                <a href="technicians.html" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>Technicians</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h1>Campus Facility Operations Dashboard</h1>
+                    <p>Live metrics, category distribution, technician allocation, and high-priority queues</p>
+                </div>
+
+                <div class="topbar-right">
+                    <a href="manage-requests.html" class="btn btn-primary btn-sm">
+                        <span>📋</span> View Request Queue
+                    </a>
+                    <div class="user-badge">
+                        <div class="user-avatar" id="header-user-avatar" style="background: #4f46e5;">A</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="header-user-name">Administrator</span>
+                            <span class="user-role-tag" id="header-user-role" style="color: #4f46e5;">ADMIN</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <!-- 8 Metric Cards Grid -->
+                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="stat-card" style="--card-accent: var(--primary);">
+                        <div class="stat-info">
+                            <div class="stat-label">Total Requests</div>
+                            <div class="stat-value" id="stat-total">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--primary-light); --icon-color: var(--primary);">
+                            📊
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--warning);">
+                        <div class="stat-info">
+                            <div class="stat-label">Pending Review</div>
+                            <div class="stat-value" id="stat-pending">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--warning-light); --icon-color: var(--warning);">
+                            ⏳
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--info);">
+                        <div class="stat-info">
+                            <div class="stat-label">Assigned</div>
+                            <div class="stat-value" id="stat-assigned">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--info-light); --icon-color: var(--info);">
+                            📌
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: #6366f1;">
+                        <div class="stat-info">
+                            <div class="stat-label">In Progress</div>
+                            <div class="stat-value" id="stat-in-progress">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: #e0e7ff; --icon-color: #6366f1;">
+                            ⚡
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--success);">
+                        <div class="stat-info">
+                            <div class="stat-label">Resolved</div>
+                            <div class="stat-value" id="stat-resolved">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--success-light); --icon-color: var(--success);">
+                            ✅
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: var(--danger);">
+                        <div class="stat-info">
+                            <div class="stat-label">Rejected</div>
+                            <div class="stat-value" id="stat-rejected">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: var(--danger-light); --icon-color: var(--danger);">
+                            🚫
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: #e11d48;">
+                        <div class="stat-info">
+                            <div class="stat-label">Urgent Issues</div>
+                            <div class="stat-value" id="stat-urgent" style="color: #e11d48;">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: #ffe4e6; --icon-color: #e11d48;">
+                            🔥
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="--card-accent: #8b5cf6;">
+                        <div class="stat-info">
+                            <div class="stat-label">Technicians</div>
+                            <div class="stat-value" id="stat-techs">0</div>
+                        </div>
+                        <div class="stat-icon" style="--icon-bg: #f3e8ff; --icon-color: #8b5cf6;">
+                            👨‍🔧
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Requests by Category</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Requests by Status Pipeline</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tables Row -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 24px;">
+                    <!-- High Priority Queue -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">🚨 High & Urgent Priority Queue</h3>
+                                <p class="card-subtitle">Active requests requiring immediate facility attention</p>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="urgent-requests-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading urgent requests...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Requests -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">📋 Recent Campus Requests</h3>
+                                <p class="card-subtitle">Latest tickets submitted by students</p>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <div class="table-responsive">
+                                <table class="data-table" id="recent-requests-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading recent requests...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

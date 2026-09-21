@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Maintenance Request - College Maintenance System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon">🛠️</div>
+                <div class="brand-info">
+                    <h2>FixCampus</h2>
+                    <span>Student Portal</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-label">Main Menu</div>
+                <a href="student-dashboard.html" class="nav-item">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="create-request.html" class="nav-item active">
+                    <span class="icon">➕</span>
+                    <span>Create Request</span>
+                </a>
+                <a href="my-requests.html" class="nav-item">
+                    <span class="icon">📋</span>
+                    <span>My Requests</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h1>Create Maintenance Request</h1>
+                    <p>Report campus infrastructure, equipment, or facility issues</p>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="user-badge">
+                        <div class="user-avatar" id="header-user-avatar">S</div>
+                        <div class="user-meta">
+                            <span class="user-name" id="header-user-name">Loading...</span>
+                            <span class="user-role-tag" id="header-user-role">STUDENT</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <main class="content-body">
+                <div class="card" style="max-width: 800px; margin: 0 auto;">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Maintenance Request Form</h3>
+                            <p class="card-subtitle">Please provide exact location and clear details to help technicians resolve quickly</p>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="create-request-form">
+                            <div class="form-group">
+                                <label class="form-label" for="title">Issue Title *</label>
+                                <input 
+                                    type="text" 
+                                    id="title" 
+                                    class="form-control" 
+                                    placeholder="e.g. Projector not working / Fan making loud noise" 
+                                    required
+                                >
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="category">Maintenance Category *</label>
+                                    <select id="category" class="form-control" required>
+                                        <option value="">-- Select Category --</option>
+                                        <option value="PROJECTOR">📽️ Projector & AV</option>
+                                        <option value="FAN_AC">❄️ Fan / Air Conditioning</option>
+                                        <option value="ELECTRICAL">⚡ Electrical & Power Sockets</option>
+                                        <option value="WIFI">📶 Campus Wi-Fi & Internet</option>
+                                        <option value="WATER">🚰 Water & Plumbing</option>
+                                        <option value="FURNITURE">🪑 Desk & Furniture</option>
+                                        <option value="CLEANING">🧹 Cleaning & Hygiene</option>
+                                        <option value="CLASSROOM">🏫 Classroom Infrastructure</option>
+                                        <option value="OTHER">🔧 Other Issue</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="priority">Priority Level *</label>
+                                    <select id="priority" class="form-control" required>
+                                        <option value="LOW">Low (Minor inconvenience)</option>
+                                        <option value="MEDIUM" selected>Medium (Standard issue)</option>
+                                        <option value="HIGH">High (Disrupts active classes)</option>
+                                        <option value="URGENT">Urgent (Safety hazard / Major outage)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="location">Exact Campus Location *</label>
+                                <input 
+                                    type="text" 
+                                    id="location" 
+                                    class="form-control" 
+                                    placeholder="e.g. CSE Block - Room 204, 2nd Floor" 
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="description">Detailed Description *</label>
+                                <textarea 
+                                    id="description" 
+                                    class="form-control" 
+                                    rows="4" 
+                                    placeholder="Describe the issue in detail, error messages, specific hardware affected, or safety warnings..." 
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px;">
+                                <a href="student-dashboard.html" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+                                <button type="submit" id="submit-btn" class="btn btn-primary" style="padding: 11px 24px;">
+                                    <span>📤</span> Submit Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/student.js"></script>
+</body>
+</html>

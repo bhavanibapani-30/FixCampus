@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - College Maintenance System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo">🎓</div>
+            <h1>Student Registration</h1>
+            <p>Create an account to report and track maintenance issues</p>
+        </div>
+
+        <div class="auth-content">
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        class="form-control" 
+                        placeholder="e.g. Alex Johnson" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">College Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-control" 
+                        placeholder="e.g. alex.j@college.edu" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-control" 
+                        placeholder="At least 6 characters" 
+                        minlength="6"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="form-control" 
+                        placeholder="Re-enter password" 
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; padding: 12px;">
+                    Create Student Account
+                </button>
+            </form>
+        </div>
+
+        <div class="auth-footer">
+            Already have an account? <a href="login.html">Sign in here</a>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
