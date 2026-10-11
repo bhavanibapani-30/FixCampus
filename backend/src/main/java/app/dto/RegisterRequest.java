@@ -1,5 +1,6 @@
 package app.dto;
 
+import app.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,4 +26,11 @@ public class RegisterRequest {
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    private Role role; // STUDENT, FACULTY, TECHNICIAN
+
+    private String staffKey; // Verification key for TECHNICIAN role (CMS-TECH-2026)
+
+    private String department; // Optional department (e.g. Computer Science, Mechanical)
 }
+

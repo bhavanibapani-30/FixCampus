@@ -17,6 +17,7 @@ public class DtoMapper {
                 .name(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .department(user.getDepartment())
                 .createdAt(user.getCreatedAt())
                 .build();
     }

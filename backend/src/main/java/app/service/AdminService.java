@@ -19,17 +19,20 @@ public class AdminService {
     private final RequestUpdateRepository updateRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
     public AdminService(
             MaintenanceRequestRepository requestRepository,
             RequestUpdateRepository updateRepository,
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            AuthService authService
     ) {
         this.requestRepository = requestRepository;
         this.updateRepository = updateRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authService = authService;
     }
 
     @Transactional(readOnly = true)
@@ -202,13 +205,19 @@ public class AdminService {
 
     @Transactional
     public UserDto createTechnician(CreateTechnicianDto dto) {
-        if (userRepository.existsByEmail(dto.getEmail().trim().toLowerCase())) {
+        String email = dto.getEmail().trim().toLowerCase();
+
+        if (!authService.isCollegeEmail(email)) {
+            throw new IllegalArgumentException("Technician account must follow the official Anurag College format: 10 characters before @anurag.edu.in (e.g. tech000001@anurag.edu.in).");
+        }
+
+        if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("User with email " + dto.getEmail() + " already exists.");
         }
 
         User technician = User.builder()
                 .name(dto.getName().trim())
-                .email(dto.getEmail().trim().toLowerCase())
+                .email(email)
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .role(Role.TECHNICIAN)
                 .build();

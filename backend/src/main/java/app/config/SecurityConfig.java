@@ -45,8 +45,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
-                        // Student endpoints
-                        .requestMatchers("/api/requests/**").hasRole("STUDENT")
+                        // Student & Faculty endpoints
+                        .requestMatchers("/api/requests/**").hasAnyRole("STUDENT", "FACULTY")
                         // Admin endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // Technician endpoints

@@ -1,3 +1,4 @@
+
 # Entity Relationship (ER) Diagram & Database Schema
 
 ## 1. Entity Relationship Diagram

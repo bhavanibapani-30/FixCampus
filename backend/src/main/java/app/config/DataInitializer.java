@@ -33,76 +33,90 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Initialize Default Admin
-        User admin = userRepository.findByEmail("admin@college.edu").orElseGet(() ->
+        // Initialize Default Admin (10 characters: admin00001@anurag.edu.in)
+        User admin = userRepository.findByEmail("admin00001@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
                         .name("System Administrator")
-                        .email("admin@college.edu")
+                        .email("admin00001@anurag.edu.in")
                         .password(passwordEncoder.encode("Admin@123"))
                         .role(Role.ADMIN)
                         .createdAt(LocalDateTime.now().minusDays(30))
                         .build())
         );
 
-        // Initialize Sample Technicians
-        User techElectrical = userRepository.findByEmail("tech.electrical@college.edu").orElseGet(() ->
+        // Initialize Sample Technicians (10 characters: tech000001@anurag.edu.in, etc.)
+        User techElectrical = userRepository.findByEmail("tech000001@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
                         .name("John Sparks (Electrical)")
-                        .email("tech.electrical@college.edu")
+                        .email("tech000001@anurag.edu.in")
                         .password(passwordEncoder.encode("Tech@123"))
                         .role(Role.TECHNICIAN)
                         .createdAt(LocalDateTime.now().minusDays(25))
                         .build())
         );
 
-        User techNetwork = userRepository.findByEmail("tech.network@college.edu").orElseGet(() ->
+        User techNetwork = userRepository.findByEmail("tech000002@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
                         .name("Sarah Fiber (Wi-Fi & IT)")
-                        .email("tech.network@college.edu")
+                        .email("tech000002@anurag.edu.in")
                         .password(passwordEncoder.encode("Tech@123"))
                         .role(Role.TECHNICIAN)
                         .createdAt(LocalDateTime.now().minusDays(25))
                         .build())
         );
 
-        User techCivil = userRepository.findByEmail("tech.civil@college.edu").orElseGet(() ->
+        User techCivil = userRepository.findByEmail("tech000003@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
                         .name("Robert Woods (Furniture & Plumbing)")
-                        .email("tech.civil@college.edu")
+                        .email("tech000003@anurag.edu.in")
                         .password(passwordEncoder.encode("Tech@123"))
                         .role(Role.TECHNICIAN)
                         .createdAt(LocalDateTime.now().minusDays(25))
                         .build())
         );
 
-        User techAv = userRepository.findByEmail("tech.audiovisual@college.edu").orElseGet(() ->
+        User techAv = userRepository.findByEmail("tech000004@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
                         .name("David Screen (Projector & AV)")
-                        .email("tech.audiovisual@college.edu")
+                        .email("tech000004@anurag.edu.in")
                         .password(passwordEncoder.encode("Tech@123"))
                         .role(Role.TECHNICIAN)
                         .createdAt(LocalDateTime.now().minusDays(25))
                         .build())
         );
 
-        // Initialize Sample Students
-        User student1 = userRepository.findByEmail("student1@college.edu").orElseGet(() ->
+        // Initialize Sample Students (10 characters: 21h61a0501@anurag.edu.in, 22h61a0502@anurag.edu.in)
+        User student1 = userRepository.findByEmail("21h61a0501@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
-                        .name("Alex Johnson")
-                        .email("student1@college.edu")
+                        .name("Alex Johnson (Roll No: 21H61A0501)")
+                        .email("21h61a0501@anurag.edu.in")
                         .password(passwordEncoder.encode("Student@123"))
                         .role(Role.STUDENT)
+                        .department("Computer Science & Engineering")
                         .createdAt(LocalDateTime.now().minusDays(20))
                         .build())
         );
 
-        User student2 = userRepository.findByEmail("student2@college.edu").orElseGet(() ->
+        User student2 = userRepository.findByEmail("22h61a0502@anurag.edu.in").orElseGet(() ->
                 userRepository.save(User.builder()
-                        .name("Emily Davis")
-                        .email("student2@college.edu")
+                        .name("Emily Davis (Roll No: 22H61A0502)")
+                        .email("22h61a0502@anurag.edu.in")
                         .password(passwordEncoder.encode("Student@123"))
                         .role(Role.STUDENT)
+                        .department("Electronics Engineering")
                         .createdAt(LocalDateTime.now().minusDays(18))
+                        .build())
+        );
+
+        // Initialize Sample Faculty (10 characters: faculty001@anurag.edu.in)
+        User faculty = userRepository.findByEmail("faculty001@anurag.edu.in").orElseGet(() ->
+                userRepository.save(User.builder()
+                        .name("Dr. Rajesh Sharma (Faculty - CSE)")
+                        .email("faculty001@anurag.edu.in")
+                        .password(passwordEncoder.encode("Faculty@123"))
+                        .role(Role.FACULTY)
+                        .department("Computer Science & Engineering")
+                        .createdAt(LocalDateTime.now().minusDays(15))
                         .build())
         );
 
@@ -286,7 +300,7 @@ public class DataInitializer implements CommandLineRunner {
                     .location("Main Academic Block - Lecture Hall 3")
                     .priority(RequestPriority.URGENT)
                     .status(RequestStatus.ASSIGNED)
-                    .student(student2)
+                    .student(faculty)
                     .technician(techElectrical)
                     .createdAt(LocalDateTime.now().minusHours(18))
                     .updatedAt(LocalDateTime.now().minusHours(6))
@@ -294,10 +308,10 @@ public class DataInitializer implements CommandLineRunner {
             req6 = requestRepository.save(req6);
             updateRepository.save(RequestUpdate.builder()
                     .request(req6)
-                    .updatedBy(student2)
+                    .updatedBy(faculty)
                     .oldStatus(null)
                     .newStatus(RequestStatus.PENDING)
-                    .comment("Maintenance request submitted by student.")
+                    .comment("Maintenance request submitted by faculty Dr. Rajesh Sharma.")
                     .createdAt(LocalDateTime.now().minusHours(18))
                     .build());
             updateRepository.save(RequestUpdate.builder()
